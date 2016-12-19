@@ -1,7 +1,7 @@
 # PDWSim
 UDP PDW Simulator - .NET Core Version 
 
-Run via comment line: dotnet run
+Run via command line: dotnet run
 
 This version generates UDP packets as fast as it can for a set duration.  This duration is modifiable in code.  
 
