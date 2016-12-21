@@ -36,26 +36,25 @@ namespace PDWSIM
 				// check stop time every 1000 iterations
 				if (i % 1000 == 0)
 				{
-					//pdw.startFrequencyMHz = 4500; 
-
 					if (stopwatch.Elapsed > TimeSpan.FromSeconds(sec))
 						break;
 				}
-				
+				int j = i;	
 				Task.Run(() => 
 				{
-					// modifying values directly in byte array to avoid serialization each loop iteration - for speed of simulator only.  Don't do this in real life! 
-					// Every 150th Freq = 4500.5
-					if (i % 150 == 0)
+					// modifying values directly in byte array to avoid serialization each loop iteration 
+					// For speed of simulator only.  Don't do this in real life! 
+					// Every 150th Freq = 150
+					if (j % 150 == 0)
 					{
-						// 4500.5
-						d[19] = 0x45; d[18] = 0x8c; d[17] = 0xa4; d[16] = 0x00;
+						// 150
+						d[19] = 0x43; d[18] = 0x16; d[17] = 0x00; d[16] = 0x00;
 					}
-					// Every 1501th Freq is 5442
-					else if (i % 15001 == 0)
+					// Every 15001th Freq is 15001
+					else if (j % 15001 == 0)
 					{
-						//5442
-						d[19] = 0x45; d[18] = 0xaa; d[17] = 0x10; d[16] = 0x00;
+						//15001
+						d[19] = 0x46; d[18] = 0x6a; d[17] = 0x64; d[16] = 0x00;
 					}
 					// Set all other Freqs = 0
 					else
@@ -81,7 +80,7 @@ namespace PDWSIM
 		public int counter = 0; // rolling counter 
 		public int receiverID = 1; //!< ID of the receiver that generated the PDW
 		
-		public long toa;
+		public long toa; // time in ns
 
 		public float startFrequencyMHz = 1000; //!< Start frequency in MHz (TOA)
 		public float stopFrequencyMHz = 1000; //!< Stop frequency in MHz (TOA + PW)
